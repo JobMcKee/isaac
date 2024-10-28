@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>Repentance</title>
     <link rel="shortcut icon" href="favicon.png">
-	<style>
-	
-	
-	body,html{margin:0;padding:0;height:100%;overflow:hidden;background-color:#603829}
+<style>body,html{margin:0;padding:0;height:100%;overflow:hidden;background-color:#603829}
 #iframe{position:fixed;top:0;left:0;width:calc(100% - 200px);height:100%;z-index:0}
 #leftpane.mobile{width:75%}
 #overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:4;display:none}
@@ -26,32 +23,10 @@ button img{width:45px;height:45px;margin-right:10px}
 button:hover{background-color:rgba(255,255,255,0.2)}
 @media (max-width:970px){#mobilebar{display:block}#iframe{width:100%;left:0;z-index:0}}
 @media (min-width:971px){#leftpane{display:block;min(calc(15%+15vw),50%)}#iframe{width:calc(100%-200px);left:200px;z-index:0}}
-#mobile-suggestions {
-position: absolute; /* Position relative to the nearest positioned ancestor */
-    background-color: #3b3b3b; /* Match the background color */
-    color: white; /* Text color */
-    width: calc(100% - 10px); /* Full width minus padding */
-    z-index: 10000; /* Ensure it is above other elements, especially iframe */
-    max-height: 300px; /* Maximum height for scrolling */
-    overflow-y: auto; /* Enable scrolling if there are too many suggestions */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Optional shadow for visibility */
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-}
-
-.suggestion-item:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Optional hover effect */
-}
-
-
-
-
-
-	</style>
-
+#mobile-suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
+.suggestion-item{padding:10px;cursor:pointer}
+.suggestion-item:hover{background-color:rgba(255,255,255,0.1)}
+</style>
 </head>
 <body>
     <div id="overlay"></div>
@@ -301,7 +276,9 @@ settingsPopup.innerHTML = `
 document.body.appendChild(settingsPopup);
 document.getElementById("settings-button").onclick = function() {
     settingsPopup.style.display = settingsPopup.style.display === "none" ? "block" : "none";
-	closeLeftPane(); // Dismiss the left pane when "Settings" is clicked
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
 };
 
 document.getElementById("close-settings").onclick = function() {
