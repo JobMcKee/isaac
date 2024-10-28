@@ -135,7 +135,7 @@ Ascent
 Aprils Fool
 Siren Minion
 Old Bandage
-Guppys Paw
+Guppy's Paw
 Crystal Ball
 Divorce Papers
 Isaac's Awakening
@@ -385,7 +385,7 @@ Esau Jr.
 Battery Bum
 Restock Machine
 Bot Fly
-Guppys Collar
+Guppy's Collar
 Vibrant Bulb
 The Cellar
 Lil Loki
@@ -421,7 +421,7 @@ Leo
 A Missing Page
 Super Ball
 Dessert
-Guppys Head
+Guppy's Head
 Flaming Gaper
 Larry Jr.
 2 of Hearts
@@ -668,7 +668,7 @@ Headless Baby
 Lil Blub
 The Left Hand
 Batteries
-Guppys Eye
+Guppy's Eye
 Everything Jar
 Forsaken
 Trite
@@ -1109,7 +1109,7 @@ Mom's Dressing Table
 Lil Haunt
 The Belt
 Ansuz
-Guppys Tail
+Guppy's Tail
 Effects
 Effects
 Monstros Lung
@@ -1255,7 +1255,7 @@ Wooden Nickel
 Blank rune
 Dead Sea Scrolls
 Fish Head
-Guppys Hairball
+Guppy's Hairball
 Placenta
 Venus
 Bob's Curse
