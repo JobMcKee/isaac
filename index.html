@@ -290,11 +290,10 @@ document.getElementById("settings-button").onclick = function() {
         closeLeftPane(); // Only dismiss the left pane when in mobile view
     }
 };
-
 document.getElementById("close-settings").onclick = function() {
     settingsPopup.style.display = "none";
 };
-
+	
 	document.body.appendChild(filtersPopup);
 document.getElementById("filters-button").onclick = function() {
     filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
@@ -302,7 +301,6 @@ document.getElementById("filters-button").onclick = function() {
         closeLeftPane(); // Only dismiss the left pane when in mobile view
     }
 };
-
 document.getElementById("close-filters").onclick = function() {
     settingsPopup.style.display = "none";
 };
@@ -314,7 +312,6 @@ document.getElementById("triumphs-button").onclick = function() {
         closeLeftPane(); // Only dismiss the left pane when in mobile view
     }
 };
-
 document.getElementById("close-challenges").onclick = function() {
     settingsPopup.style.display = "none";
 };
@@ -350,36 +347,6 @@ document.addEventListener('keydown', function(event) {
 
 
 </script>
-
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</ul>
-
-    </div>
-    <div id="mobilebar">
-        <button id="hamburger">☰</button>
-                <input type="text" id="searchbar" placeholder="Search..." style="display:none;">
-    </div>
-    <iframe id="iframe" src="https://bindingofisaacrebirth.fandom.com/wiki/The_Binding_of_Isaac:_Repentance"></iframe>
-
-
-
 
 
 </body>
