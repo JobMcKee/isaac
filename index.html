@@ -19,13 +19,7 @@
     		<div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
 	    </li>	
 
-<script>
 
-// Ensure that clicking the search button focuses on the input field
-document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() {
-    document.getElementById("mobile-searchbar").focus(); // Focus the input field
-};
-</script>
 
 <li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
 <li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
@@ -63,22 +57,7 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
     </div>
     <iframe id="iframe" src="https://bindingofisaacrebirth.fandom.com/wiki/The_Binding_of_Isaac:_Repentance"></iframe>
 
-<script>
-
-// Create settings popup
-var settingsPopup = document.createElement("div");
-settingsPopup.style.position = "fixed";
-settingsPopup.style.top = "50%";
-settingsPopup.style.left = "62.5%"; 
-settingsPopup.style.transform = "translate(-50%, -50%)";
-settingsPopup.style.width = "60%"; 
-settingsPopup.style.backgroundColor = "#603829";
-settingsPopup.style.color = "white"; 
-settingsPopup.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
-settingsPopup.style.padding = "20px";
-settingsPopup.style.display = "none";
-
-settingsPopup.innerHTML = `
+<div class="popup" id="settingsPopup">
     <h2>More features coming soon:</h2>
     <ul style="list-style-type: none; padding: 0; margin: 0; pointer-events: none;">
         <li style="pointer-events: auto;"><input type="checkbox" id="welcome-screen" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> Create welcome screen (instructions)</li>
@@ -88,7 +67,12 @@ settingsPopup.innerHTML = `
         <li style="pointer-events: auto;"><input type="checkbox" id="ad-blocking" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> search suggestions on mobile</li>
         <li style="pointer-events: auto;"><input type="checkbox" id="ad-blocking" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> search suggestions paired with images</li>
         <li style="pointer-events: auto;"><button id="close-settings" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button></li>
-		<p>use these filters with uBlock Origin for Chrome<br>
+		
+   </ul>
+</div>
+
+<div class="popup" id="filtersPopup">
+<p>use these filters with uBlock Origin for Chrome<br>
 		bindingofisaacrebirth.fandom.com##.WikiaRail.right-rail-wrapper<br>
 		bindingofisaacrebirth.fandom.com##.mcf-wrapper<br>
 		bindingofisaacrebirth.fandom.com##.global-footer<br>
@@ -104,11 +88,15 @@ settingsPopup.innerHTML = `
 		bindingofisaacrebirth.fandom.com##.page-header__top<br>
 		bindingofisaacrebirth.fandom.com##.page-header__actions<br>
 		bindingofisaacrebirth.fandom.com##.page-footer</p>
-   </ul>
-`;
+	
+</div>
 
+	
+<div class="popup" id="challengesPopup">
+	
+	
+</div>
 
-</script>
 
 
 </body>
