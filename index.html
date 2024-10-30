@@ -117,12 +117,10 @@ function showSuggestions(input) {
     }
 }
 
-// Event listener for the search input
 document.getElementById('mobile-searchbar').addEventListener('input', function() {
     showSuggestions(this);
 });
 
-// Hide suggestions when clicking outside
 document.addEventListener('click', function(event) {
     const suggestionBox = document.getElementById('mobile-suggestions');
     if (!suggestionBox.contains(event.target) && event.target.id !== 'mobile-searchbar') {
@@ -130,28 +128,39 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Function to submit search
 function searchWiki(query) {
     if (!query || query.trim() === "") return; 
     document.getElementById("iframe").src = `https://bindingofisaacrebirth.fandom.com/wiki/Special:Search?search=${encodeURIComponent(query)}&go=Search`;
     document.getElementById("mobile-searchbar").value = ''; 
     document.getElementById('mobile-suggestions').style.display = 'none'; 
-
-    // Dismiss the keyboard and close the left pane
-    document.getElementById("mobile-searchbar").blur(); // Dismiss the keyboard
-    if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
+    document.getElementById("mobile-searchbar").blur(); 
+    if (window.innerWidth <= 970) closeLeftPane(); 
 }
 
-
-// Add event listener for search submission
 document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
-    if (event.key === "Enter") {
-        searchWiki(this.value); 
-        document.getElementById('mobile-suggestions').style.display = 'none';
+    const items = document.querySelectorAll('.suggestion-item');
+    let selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
+    if (event.key === "ArrowDown") {
+        selectedIndex = (selectedIndex + 1) % items.length;
+        items.forEach(item => item.classList.remove('selected'));
+        items[selectedIndex].classList.add('selected');
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
+        event.preventDefault();
+    } else if (event.key === "ArrowUp") {
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        items.forEach(item => item.classList.remove('selected'));
+        items[selectedIndex].classList.add('selected');
+        items[selectedIndex].scrollIntoView({ block: 'nearest' });
+        event.preventDefault();
+    } else if (event.key === 'Enter') {
+        const selectedItem = document.querySelector('.suggestion-item.selected');
+        if (selectedItem) {
+            searchWiki(selectedItem.textContent);
+            document.getElementById('mobile-suggestions').style.display = 'none';
+        }
     }
 });
 
-let isLeftPaneOpen = false;
 document.getElementById("hamburger").onclick = function() {
     if (isLeftPaneOpen) closeLeftPane();
     else openLeftPane();
@@ -174,13 +183,11 @@ function closeLeftPane() {
     isLeftPaneOpen = false;
 }
 
-// Close on overlay click or escape key
 document.getElementById("overlay").addEventListener('click', closeLeftPane);
 document.addEventListener('keydown', function(event) {
     if (event.key === "Escape" && isLeftPaneOpen) closeLeftPane();
 });
 
-// Window resize event handler for display adjustment
 window.onresize = function() {
     if (window.innerWidth > 970) {
         document.getElementById("leftpane").style.display = "block";
@@ -196,7 +203,6 @@ window.onresize = function() {
     }
 };
 
-// Add touch event to allow swipe-to-close on mobile
 let touchStartX = 0;
 document.getElementById('leftpane').addEventListener('touchstart', function(e) {
     touchStartX = e.changedTouches[0].screenX;
@@ -205,27 +211,46 @@ document.getElementById('leftpane').addEventListener('touchend', function(e) {
     if (e.changedTouches[0].screenX < touchStartX - 50) closeLeftPane();
 });
 
-// Update the button click event listener
 document.querySelectorAll("#leftpane-list button").forEach(button => {
     button.onclick = function() {
         const title = this.getAttribute("data-title");
-
-        // Prevent closing the left pane if the search input is clicked
         if (title === "leftpanesearchbar") {
-            return; // Don't close the left pane when search input is clicked
+            return;
         }
-
-        // Specific behavior for the "Collection" button
         if (title === "Collection") {
             document.getElementById("iframe").src = "https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)";
         } else if (title) {
             searchWiki(title);
         }
-
-        // Close the left pane for all other buttons when on mobile
         if (window.innerWidth <= 970) closeLeftPane();
     };
 });
+
+document.addEventListener('keydown', function(event) {
+    const searchInput = document.getElementById("mobile-searchbar");
+    if (document.activeElement !== searchInput) {
+        searchInput.focus();
+    }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        const items = document.querySelectorAll('.suggestion-item');
+        if (items.length) {
+            let selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
+            selectedIndex = (event.key === 'ArrowDown') ? selectedIndex + 1 : selectedIndex - 1;
+            selectedIndex = (selectedIndex + items.length) % items.length;
+            items.forEach(item => item.classList.remove('selected'));
+            items[selectedIndex].classList.add('selected');
+            items[selectedIndex].scrollIntoView({ block: 'nearest' });
+            event.preventDefault();
+        }
+    } else if (event.key === 'Enter') {
+        const selectedItem = document.querySelector('.suggestion-item.selected');
+        if (selectedItem) {
+            searchWiki(selectedItem.textContent);
+            document.getElementById('mobile-suggestions').style.display = 'none';
+        }
+    }
+});
+
 
 
 
