@@ -4,31 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>Repentance</title>
     <link rel="shortcut icon" href="favicon.png">
-   <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="myscripts.js"></script> 
 </head>
 <body>
     <div id="overlay"></div>
     <div id="leftpane">
         <ul id="leftpane-list">
             <li>
-    <button data-title="leftpanesearchbar" style="display: flex; align-items: center; width: 100%;">
-        <img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
-        <input type="text" id="mobile-searchbar" placeholder="bitch..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
-    </button>
-    <div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
-</li>
+	    	<button data-title="leftpanesearchbar" style="display: flex; align-items: center; width: 100%;">
+        	<img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
+        	<input type="text" id="mobile-searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
+		</button>
+    		<div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
+	    </li>	
 
-<script>
-// Ensure that clicking the search button focuses on the input field
-document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() {
-    document.getElementById("mobile-searchbar").focus(); // Focus the input field
-};
 
-// Your existing code for the search input handling goes here...
-</script>
 
-            <li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>
-  <li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
+<li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
+<li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
 <li><button data-title="Cards and Runes"><img src="img/cardsandrunes.png" alt="Cards and Runes Icon">Cards and Runes</button></li>
 <li><button data-title="Pickups"><img src="img/pickups.png" alt="Pickups Icon">Pickups</button></li>
 <li><button data-title="Achievements"><img src="img/achievements.png" alt="Achievements Icon">Achievements</button></li>
@@ -41,14 +35,16 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <li><button data-title="Champions"><img src="img/champions.png" alt="Champions Icon">Champions</button></li>
 <li><button data-title="Bosses"><img src="img/bosses.png" alt="Bosses Icon">Bosses</button></li>
 <li><button data-title="Characters"><img src="img/characters.png" alt="Characters Icon">Characters</button></li>
-<li><button data-title="Completion Marks"><img src="img/completionmarks.png" alt="Completion Marks Icon">Completion Marks</button></li>
+<li><button data-title="Completion Marks"><img src="img/completionmarks.png" alt="Marks Icon">Marks</button></li>
 <li><button data-title="Curses"><img src="img/curses.png" alt="Curses Icon">Curses</button></li>
 <li><button data-title="Floors"><img src="img/floors.png" alt="Floors Icon">Floors</button></li>
 <li><button data-title="Rooms"><img src="img/rooms.png" alt="Rooms Icon">Rooms</button></li>
 <li><button data-title="Item Pools"><img src="img/itempools.png" alt="Item Pools Icon">Item Pools</button></li>
 <li><button data-title="Challenges"><img src="img/challenges.png" alt="Challenges Icon">Challenges</button></li>
+<li><button id="triumphs-button"><img src="img/platchallenges.png" alt="Challenges Icon">Triumphs</button></li>
 <li><button data-title="Babies"><img src="img/babies.png" alt="Babies Icon">Babies</button></li>
 <li><button data-title="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
+<li><button id="filters-button"><img src="img/filters.png" alt="Settings Icon">Filters</button></li>
 <li><button id="settings-button"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
 
 
@@ -60,7 +56,15 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
                 <input type="text" id="searchbar" placeholder="Search..." style="display:none;">
     </div>
     <iframe id="iframe" src="https://bindingofisaacrebirth.fandom.com/wiki/The_Binding_of_Isaac:_Repentance"></iframe>
+
 <script>
+
+// Ensure that clicking the search button focuses on the input field
+document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() {
+    document.getElementById("mobile-searchbar").focus(); // Focus the input field
+};
+
+	
 let suggestions = [];
 
 // Load suggestions from the file
