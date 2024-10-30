@@ -166,6 +166,8 @@ function showSuggestions(input) {
             };
             suggestionBox.appendChild(suggestionItem);
         });
+        // Automatically highlight the first suggestion
+        suggestionBox.firstChild.classList.add('selected');
     } else {
         suggestionBox.style.display = 'none';
     }
@@ -341,7 +343,6 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
-
 
 
 
