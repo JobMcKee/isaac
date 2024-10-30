@@ -6,22 +6,55 @@
     <link rel="shortcut icon" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script> 
+	
+<style>body,html{margin:0;padding:0;height:100%;overflow:hidden;background-color:#603829}
+#iframe{position:fixed;top:0;left:0;width:calc(100% - 200px);height:100%;z-index:0}
+#leftpane.mobile{width:75%}
+#overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:4;display:none}
+#second-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.3);z-index:3;display:none}
+#mobilebar{position:fixed;top:0;left:0;height:45px;width:100%;background-color:#3b3b3b;z-index:2;display:none;padding:0;box-sizing:border-box}
+#leftpane{position:fixed;top:0;left:0;height:100%;background-color:#3b3b3b;z-index:5;display:none;padding:10px;box-sizing:border-box;   overflow-y:auto}
+#leftpane::-webkit-scrollbar{width:0;height:0}
+#leftpane{-ms-overflow-style:none;scrollbar-width:none}
+#hamburger{background-color:#3b3b3b;color:white;border:none;width:35px;height:35px;border-radius:0;cursor:pointer;position:absolute;top:5px;left:5px;font-size:24px}
+#searchbar{width:calc(75%);height:24px;padding:5px;border:none;margin-top:5px;border-radius:15px;margin-left:45px}
+ul{list-style-type:none;padding:0}
+li{background-color:#3b3b3b;margin:5px 0;border-radius:4px;transition:background-color 0.3s}
+li:hover{background-color:rgba(255,255,255,0.2)}
+button{ font-size: 17px;background-color:#3b3b3b;color:white;border:none;width:100%;padding:10px;border-radius:4px;cursor:pointer;display:flex;align-items:center}
+button img{width:45px;height:45px;margin-right:10px}
+button:hover{background-color:rgba(255,255,255,0.2)}
+@media (max-width:970px){#mobilebar{display:block}#iframe{width:100%;left:0;z-index:0}}
+@media (min-width:971px){#leftpane{display:block;min(calc(15%+15vw),50%)}#iframe{width:calc(100%-200px);left:200px;z-index:0}}
+#mobile-suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
+.suggestion-item{padding:10px;cursor:pointer}
+.suggestion-item:hover{background-color:rgba(255,255,255,0.1)}
+.popup{position:fixed;top:50%;left:62.5%;transform:translate(-50%,-50%);width:60%;background-color:#603829;color:white;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:20px;display:none;}
+</style>
+	
 </head>
 <body>
     <div id="overlay"></div>
     <div id="leftpane">
         <ul id="leftpane-list">
             <li>
-	    	<button data-title="leftpanesearchbar" style="display: flex; align-items: center; width: 100%;">
-        	<img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
-        	<input type="text" id="mobile-searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
-		</button>
-    		<div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
-	    </li>	
+    <button data-title="leftpanesearchbar" style="display: flex; align-items: center; width: 100%;">
+        <img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
+        <input type="text" id="mobile-searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
+    </button>
+    <div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
+</li>
 
+<script>
+// Ensure that clicking the search button focuses on the input field
+document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() {
+    document.getElementById("mobile-searchbar").focus(); // Focus the input field
+};
 
+// Your existing code for the search input handling goes here...
+</script>
 
-<li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
+            <li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
 <li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
 <li><button data-title="Cards and Runes"><img src="img/cardsandrunes.png" alt="Cards and Runes Icon">Cards and Runes</button></li>
 <li><button data-title="Pickups"><img src="img/pickups.png" alt="Pickups Icon">Pickups</button></li>
@@ -57,6 +90,7 @@
     </div>
     <iframe id="iframe" src="https://bindingofisaacrebirth.fandom.com/wiki/The_Binding_of_Isaac:_Repentance"></iframe>
 
+
 <div class="popup" id="settingsPopup">
     <h2>More features coming soon:</h2>
     <ul style="list-style-type: none; padding: 0; margin: 0; pointer-events: none;">
@@ -88,14 +122,263 @@
 		bindingofisaacrebirth.fandom.com##.page-header__top<br>
 		bindingofisaacrebirth.fandom.com##.page-header__actions<br>
 		bindingofisaacrebirth.fandom.com##.page-footer</p>
-	
+<button id="close-filters" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
+
 </div>
 
 	
 <div class="popup" id="challengesPopup">
-	
+	<button id="close-challenges" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
+
 	
 </div>
+
+
+
+
+	
+<script>
+let suggestions = [];
+
+// Load suggestions from the file
+fetch('suggestions.txt') 
+    .then(response => response.text())
+    .then(data => {
+        suggestions = data.split('\n').map(item => item.trim()).filter(item => item);
+    });
+
+function showSuggestions(input) {
+    const suggestionBox = document.getElementById('mobile-suggestions');
+    suggestionBox.innerHTML = '';
+    const inputValue = input.value.toLowerCase();
+    const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().includes(inputValue));
+    if (filteredSuggestions.length > 0) {
+        suggestionBox.style.display = 'block';
+        suggestionBox.style.top = `${input.getBoundingClientRect().bottom + window.scrollY}px`;
+        filteredSuggestions.forEach((suggestion, index) => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.classList.add('suggestion-item');
+            suggestionItem.dataset.index = index;
+            suggestionItem.textContent = suggestion;
+            suggestionItem.onclick = () => {
+                input.value = suggestion;
+                searchWiki(suggestion);
+                suggestionBox.style.display = 'none';
+            };
+            suggestionBox.appendChild(suggestionItem);
+        });
+    } else {
+        suggestionBox.style.display = 'none';
+    }
+}
+
+// Event listener for the search input
+document.getElementById('mobile-searchbar').addEventListener('input', function() {
+    showSuggestions(this);
+});
+
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(event) {
+    const suggestionBox = document.getElementById('mobile-suggestions');
+    if (!suggestionBox.contains(event.target) && event.target.id !== 'mobile-searchbar') {
+        suggestionBox.style.display = 'none';
+    }
+});
+
+// Function to submit search
+function searchWiki(query) {
+    if (!query || query.trim() === "") return; 
+    document.getElementById("iframe").src = `https://bindingofisaacrebirth.fandom.com/wiki/Special:Search?search=${encodeURIComponent(query)}&go=Search`;
+    document.getElementById("mobile-searchbar").value = ''; 
+    document.getElementById('mobile-suggestions').style.display = 'none'; 
+
+    // Dismiss the keyboard and close the left pane
+    document.getElementById("mobile-searchbar").blur(); // Dismiss the keyboard
+    if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
+}
+
+
+// Add event listener for search submission
+document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        searchWiki(this.value); 
+        document.getElementById('mobile-suggestions').style.display = 'none';
+    }
+});
+
+let isLeftPaneOpen = false;
+document.getElementById("hamburger").onclick = function() {
+    if (isLeftPaneOpen) closeLeftPane();
+    else openLeftPane();
+};
+
+function openLeftPane() {
+    const leftpane = document.getElementById("leftpane");
+    leftpane.classList.add("mobile");
+    leftpane.style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+    document.getElementById("second-overlay").style.display = "block"; 
+    isLeftPaneOpen = true;
+}
+
+function closeLeftPane() {
+    const leftpane = document.getElementById("leftpane");
+    leftpane.style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("second-overlay").style.display = "none";
+    isLeftPaneOpen = false;
+}
+
+// Close on overlay click or escape key
+document.getElementById("overlay").addEventListener('click', closeLeftPane);
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape" && isLeftPaneOpen) closeLeftPane();
+});
+
+// Window resize event handler for display adjustment
+window.onresize = function() {
+    if (window.innerWidth > 970) {
+        document.getElementById("leftpane").style.display = "block";
+        document.getElementById("leftpane").classList.remove("mobile");
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("second-overlay").style.display = "none";
+        isLeftPaneOpen = false;
+    } else {
+        document.getElementById("leftpane").style.display = "none";
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("second-overlay").style.display = "none";
+        isLeftPaneOpen = false;
+    }
+};
+
+// Add touch event to allow swipe-to-close on mobile
+let touchStartX = 0;
+document.getElementById('leftpane').addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+});
+document.getElementById('leftpane').addEventListener('touchend', function(e) {
+    if (e.changedTouches[0].screenX < touchStartX - 50) closeLeftPane();
+});
+
+// Update the button click event listener
+document.querySelectorAll("#leftpane-list button").forEach(button => {
+    button.onclick = function() {
+        const title = this.getAttribute("data-title");
+
+        // Prevent closing the left pane if the search input is clicked
+        if (title === "leftpanesearchbar") {
+            return; // Don't close the left pane when search input is clicked
+        }
+
+        // Specific behavior for the "Collection" button
+        if (title === "Collection") {
+            document.getElementById("iframe").src = "https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)";
+        } else if (title) {
+            searchWiki(title);
+        }
+
+        // Close the left pane for all other buttons when on mobile
+        if (window.innerWidth <= 970) closeLeftPane();
+    };
+});
+
+
+document.body.appendChild(settingsPopup);
+document.getElementById("settings-button").onclick = function() {
+    settingsPopup.style.display = settingsPopup.style.display === "none" ? "block" : "none";
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
+};
+
+document.getElementById("close-settings").onclick = function() {
+    settingsPopup.style.display = "none";
+};
+
+	document.body.appendChild(filtersPopup);
+document.getElementById("filters-button").onclick = function() {
+    filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
+};
+
+document.getElementById("close-filters").onclick = function() {
+    settingsPopup.style.display = "none";
+};
+
+	document.body.appendChild(challengesPopup);
+document.getElementById("triumphs-button").onclick = function() {
+    challengesPopup.style.display = challengesPopup.style.display === "none" ? "block" : "none";
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
+};
+
+document.getElementById("close-challenges").onclick = function() {
+    settingsPopup.style.display = "none";
+};
+
+
+
+document.addEventListener('keydown', function(event) {
+    const searchInput = document.getElementById("mobile-searchbar");
+    if (document.activeElement !== searchInput) {
+        searchInput.focus();
+    }
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        const items = document.querySelectorAll('.suggestion-item');
+        if (items.length) {
+            let selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
+            selectedIndex = (event.key === 'ArrowDown') ? selectedIndex + 1 : selectedIndex - 1;
+            selectedIndex = (selectedIndex + items.length) % items.length;
+            items.forEach(item => item.classList.remove('selected'));
+            items[selectedIndex].classList.add('selected');
+            items[selectedIndex].scrollIntoView({ block: 'nearest' });
+            event.preventDefault();
+        }
+    } else if (event.key === 'Enter') {
+        const selectedItem = document.querySelector('.suggestion-item.selected');
+        if (selectedItem) {
+            searchWiki(selectedItem.textContent);
+            document.getElementById('mobile-suggestions').style.display = 'none';
+        }
+    }
+});
+
+
+
+
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</ul>
+
+    </div>
+    <div id="mobilebar">
+        <button id="hamburger">☰</button>
+                <input type="text" id="searchbar" placeholder="Search..." style="display:none;">
+    </div>
+    <iframe id="iframe" src="https://bindingofisaacrebirth.fandom.com/wiki/The_Binding_of_Isaac:_Repentance"></iframe>
+
+
 
 
 
