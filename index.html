@@ -75,11 +75,11 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <li><button data-title="Rooms"><img src="img/rooms.png" alt="Rooms Icon">Rooms</button></li>
 <li><button data-title="Item Pools"><img src="img/itempools.png" alt="Item Pools Icon">Item Pools</button></li>
 <li><button data-title="Challenges"><img src="img/challenges.png" alt="Challenges Icon">Challenges</button></li>
-<li><button id="triumphs-button"><img src="img/platchallenges.png" alt="Challenges Icon">Triumphs</button></li>
+<li><button class="popup-button" data-popup="triumphsPopup"><img src="img/platchallenges.png" alt="Triumphs Icon">Triumphs</button><li>
 <li><button data-title="Babies"><img src="img/babies.png" alt="Babies Icon">Babies</button></li>
 <li><button data-title="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
-<li><button id="filters-button"><img src="img/filters.png" alt="Settings Icon">Filters</button></li>
-<li><button id="settings-button"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
+<li><button class="popup-button" data-popup="filtersPopup"><img src="img/filters.png" alt="Filters Icon">Filters</button><li>
+<li><button class="popup-button" data-popup="settingsPopup"><img src="img/settings.png" alt="Settings Icon">Filters</button><li>
 </ul>
     </div>
     <div id="mobilebar">
@@ -92,12 +92,12 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <div class="popup" id="settingsPopup">
     <h2>More features coming soon:</h2>
     <ul style="list-style-type: none; padding: 0; margin: 0; pointer-events: none;">
-	<li>    <input type="checkbox" id="welcome-screen"> Create welcome screen (instructions)</li>
-	<li>    <input type="checkbox" id="collection-progress" disabled><s> Collection</s> progress tracking per user</li>
-	<li>    <input type="checkbox" id="ad-blocking"> Automatic wikia ad blocking</li>
-	<li>    <input type="checkbox" id="ad-blocking"> Code refactor</li>
-	<li>    <input type="checkbox" id="ad-blocking"> search suggestions on mobile</li>
-	<li>    <input type="checkbox"> search suggestions paired with images</li>
+	<li>    Create welcome screen (instructions)</li>
+	<li>    Collection progress tracking per user</li>
+	<li>     Automatic wikia ad blocking</li>
+	<li>    Code refactor</li>
+	<li>     search suggestions on mobile</li>
+	<li>     search suggestions paired with images</li>
 	<li>    <button id="close-filters">Close</button></li>	
    </ul>
 </div>
