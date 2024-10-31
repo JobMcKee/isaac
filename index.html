@@ -28,6 +28,10 @@ button:hover{background-color:rgba(255,255,255,0.2)}
 .suggestion-item{padding:10px;cursor:pointer}
 .suggestion-item:hover,.suggestion-item.selected{background-color:rgba(255,255,255,0.3)}
 .popup{position:fixed;top:50%;left:62.5%;transform:translate(-50%,-50%);width:60%;background-color:#603829;color:white;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:20px;display:none;}
+#close-filters, #close-settings, #close-challenges {    background-color: #3b3b3b;    color: white;    border: none;    padding: 10px;    cursor: pointer;}
+#settingsPopup input[type="checkbox"], #filtersPopup input[type="checkbox"] {    margin-right: 10px;    appearance: none;    width: 20px;    height: 20px;}
+#settingsPopup li, #filtersPopup li {    pointer-events: auto;}
+	
 </style>
 	
 </head>
@@ -88,14 +92,13 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <div class="popup" id="settingsPopup">
     <h2>More features coming soon:</h2>
     <ul style="list-style-type: none; padding: 0; margin: 0; pointer-events: none;">
-        <li style="pointer-events: auto;"><input type="checkbox" id="welcome-screen" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> Create welcome screen (instructions)</li>
-        <li style="pointer-events: auto;"><input type="checkbox" id="collection-progress" disabled style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"><s> Collection</s> progress tracking per user</li>
-        <li style="pointer-events: auto;"><input type="checkbox" id="ad-blocking" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> Automatic wikia ad blocking</li>
-        <li style="pointer-events: auto;"><input type="checkbox" id="ad-blocking" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> Code refactor </li>
-        <li style="pointer-events: auto;"><input type="checkbox" id="ad-blocking" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> search suggestions on mobile</li>
-        <li style="pointer-events: auto;"><input type="checkbox" id="ad-blocking" style="margin-right: 10px; appearance: none; width: 20px; height: 20px;"> search suggestions paired with images</li>
-        <li style="pointer-events: auto;"><button id="close-settings" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button></li>
-		
+	<li>    <input type="checkbox" id="welcome-screen"> Create welcome screen (instructions)</li>
+	<li>    <input type="checkbox" id="collection-progress" disabled><s> Collection</s> progress tracking per user</li>
+	<li>    <input type="checkbox" id="ad-blocking"> Automatic wikia ad blocking</li>
+	<li>    <input type="checkbox" id="ad-blocking"> Code refactor</li>
+	<li>    <input type="checkbox" id="ad-blocking"> search suggestions on mobile</li>
+	<li>    <input type="checkbox"> search suggestions paired with images</li>
+	<li>    <button id="close-filters">Close</button></li>	
    </ul>
 </div>
 
@@ -116,13 +119,11 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 		bindingofisaacrebirth.fandom.com##.page-header__top<br>
 		bindingofisaacrebirth.fandom.com##.page-header__actions<br>
 		bindingofisaacrebirth.fandom.com##.page-footer</p>
-<button id="close-filters" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
-
+	<button id="close-filters">Close</button>
 </div>
 
 <div class="popup" id="challengesPopup">
-	<button id="close-challenges" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
-
+	<button id="close-challenges">Close</button>
 </div>
 
 
