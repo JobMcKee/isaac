@@ -26,15 +26,9 @@ button:hover{background-color:rgba(255,255,255,0.2)}
 @media (max-width:970px){#mobilebar{display:block}#iframe{width:100%;left:0;z-index:0}}
 @media (min-width:971px){#leftpane{display:block;min(calc(15%+15vw),50%)}#iframe{width:calc(100%-200px);left:200px;z-index:0}}
 #mobile-suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-}
-
+.suggestion-item{padding:10px;cursor:pointer}
 .suggestion-item:hover,
-.suggestion-item.selected {
-    background-color: rgba(255, 255, 255, 0.1);
-}
+.suggestion-item.selected{background-color:rgba(255,255,255,0.1)}
 .popup{position:fixed;top:50%;left:62.5%;transform:translate(-50%,-50%);width:60%;background-color:#603829;color:white;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:20px;display:none;}
 </style>
 	
@@ -48,8 +42,8 @@ button:hover{background-color:rgba(255,255,255,0.2)}
         <img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
         <input type="text" id="mobile-searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
     </button>
-<div id="mobile-suggestions" style="display:none;"></div>
-	    </li>
+    <div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
+</li>
 
 <script>
 // Ensure that clicking the search button focuses on the input field
@@ -60,7 +54,7 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 // Your existing code for the search input handling goes here...
 </script>
 
-<li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
+            <li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
 <li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
 <li><button data-title="Cards and Runes"><img src="img/cardsandrunes.png" alt="Cards and Runes Icon">Cards and Runes</button></li>
 <li><button data-title="Pickups"><img src="img/pickups.png" alt="Pickups Icon">Pickups</button></li>
@@ -85,6 +79,8 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <li><button data-title="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
 <li><button id="filters-button"><img src="img/filters.png" alt="Settings Icon">Filters</button></li>
 <li><button id="settings-button"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
+
+
 </ul>
 
     </div>
@@ -130,18 +126,18 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 
 </div>
 
+	
 <div class="popup" id="challengesPopup">
 	<button id="close-challenges" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
 
+	
 </div>
+
+
+
 
 	
 <script>
-
-document.getElementById('mobile-searchbar').addEventListener('input', function() {
-    showSuggestions(this);
-});
-	
 let suggestions = [];
 
 // Load suggestions from the file
@@ -171,8 +167,6 @@ function showSuggestions(input) {
             };
             suggestionBox.appendChild(suggestionItem);
         });
-        // Automatically highlight the first suggestion
-        suggestionBox.firstChild.classList.add('selected');
     } else {
         suggestionBox.style.display = 'none';
     }
@@ -204,29 +198,10 @@ function searchWiki(query) {
 }
 
 
+// Add event listener for search submission
 document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
-    const items = document.querySelectorAll('.suggestion-item');
-    let selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
-    
-    if (event.key === "ArrowDown") {
-        selectedIndex = (selectedIndex + 1) % items.length;
-        items.forEach(item => item.classList.remove('selected'));
-        items[selectedIndex].classList.add('selected');
-        items[selectedIndex].scrollIntoView({ block: 'nearest' });
-        event.preventDefault();
-    } else if (event.key === "ArrowUp") {
-        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
-        items.forEach(item => item.classList.remove('selected'));
-        items[selectedIndex].classList.add('selected');
-        items[selectedIndex].scrollIntoView({ block: 'nearest' });
-        event.preventDefault();
-    } else if (event.key === 'Enter') {
-        const selectedItem = document.querySelector('.suggestion-item.selected');
-        if (selectedItem) {
-            searchWiki(selectedItem.textContent);
-        } else {
-            searchWiki(this.value);
-        }
+    if (event.key === "Enter") {
+        searchWiki(this.value); 
         document.getElementById('mobile-suggestions').style.display = 'none';
     }
 });
@@ -308,66 +283,41 @@ document.querySelectorAll("#leftpane-list button").forEach(button => {
 });
 
 
-// Ensure initial state
-document.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById("filtersPopup").style.display = "none";
-    document.getElementById("settingsPopup").style.display = "none";
-    document.getElementById("challengesPopup").style.display = "none";
-});
-
-// Function to close the left pane if in mobile view
-function closeLeftPaneIfMobile() {
-    if (window.innerWidth <= 970) {
-        closeLeftPane();
-    }
-}
-
-// Modify the close buttons to also close the left pane if in mobile view
-document.getElementById("close-filters").onclick = function() {
-    document.getElementById("filtersPopup").style.display = "none";
-    closeLeftPaneIfMobile();
-};
-
-document.getElementById("close-settings").onclick = function() {
-    document.getElementById("settingsPopup").style.display = "none";
-    closeLeftPaneIfMobile();
-};
-
-document.getElementById("close-challenges").onclick = function() {
-    document.getElementById("challengesPopup").style.display = "none";
-    closeLeftPaneIfMobile();
-};
-
-// Function to close the left pane
-function closeLeftPane() {
-    const leftpane = document.getElementById("leftpane");
-    leftpane.style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("second-overlay").style.display = "none";
-    isLeftPaneOpen = false;
-}
-
-// Event listeners for buttons to toggle popup visibility
-document.getElementById("filters-button").onclick = function() {
-    const filtersPopup = document.getElementById("filtersPopup");
-    filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
-};
-
+document.body.appendChild(settingsPopup);
 document.getElementById("settings-button").onclick = function() {
-    const settingsPopup = document.getElementById("settingsPopup");
     settingsPopup.style.display = settingsPopup.style.display === "none" ? "block" : "none";
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
+};
+document.getElementById("close-settings").onclick = function() {
+    settingsPopup.style.display = "none";
+};
+	
+	document.body.appendChild(filtersPopup);
+document.getElementById("filters-button").onclick = function() {
+    filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
+};
+document.getElementById("close-filters").onclick = function() {
+    filtersPopup.style.display = "none";
 };
 
+	document.body.appendChild(challengesPopup);
 document.getElementById("triumphs-button").onclick = function() {
-    const challengesPopup = document.getElementById("challengesPopup");
     challengesPopup.style.display = challengesPopup.style.display === "none" ? "block" : "none";
+    if (window.innerWidth <= 970) {
+        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    }
+};
+document.getElementById("close-challenges").onclick = function() {
+    settingsPopup.style.display = "none";
 };
 
-// Initializing the state of isLeftPaneOpen
-let isLeftPaneOpen = false;
 
 
-// navigate search suggestions with arrowkeys
 document.addEventListener('keydown', function(event) {
     const searchInput = document.getElementById("mobile-searchbar");
     if (document.activeElement !== searchInput) {
@@ -392,6 +342,7 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+
 
 
 
