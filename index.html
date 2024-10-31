@@ -125,6 +125,7 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <script>
 let suggestions = [];
 
+	
 // Load suggestions from the file
 fetch('suggestions.txt') 
     .then(response => response.text())
@@ -196,6 +197,8 @@ document.getElementById('mobile-searchbar').addEventListener('keydown', function
         this.value = '';
     }
 });
+
+	let isLeftPaneOpen = false;
 	
 document.addEventListener('DOMContentLoaded', function() {
     function togglePopup(popupId) {
