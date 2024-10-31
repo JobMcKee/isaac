@@ -202,7 +202,8 @@ document.getElementById('mobile-searchbar').addEventListener('keydown', function
         this.value = '';
     }
 });
-	document.addEventListener('DOMContentLoaded', function() {
+	
+document.addEventListener('DOMContentLoaded', function() {
     function togglePopup(popupId) {
         const popup = document.getElementById(popupId);
         popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
@@ -218,25 +219,13 @@ document.getElementById('mobile-searchbar').addEventListener('keydown', function
         };
     });
 
-    document.getElementById('close-settings').onclick = function() {
-        document.getElementById('settingsPopup').style.display = 'none';
-    };
-		
-    document.getElementById('close-filters').onclick = function() {
-        document.getElementById('filtersPopup').style.display = 'none';
-    };
-
-    document.getElementById('close-triumphs').onclick = function() {
-        document.getElementById('triumphsPopup').style.display = 'none';
-    };
-
-		// Universal close button
+    // Universal close button
     document.querySelectorAll('.close-popup').forEach(button => {
         button.onclick = function() {
             this.parentElement.style.display = 'none';
         };
     });
-		
+
     // Existing code for the sidebar and search functionality
     document.getElementById('hamburger').onclick = function() {
         if (isLeftPaneOpen) closeLeftPane();
