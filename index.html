@@ -122,8 +122,8 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 	<button id="close-filters">Close</button>
 </div>
 
-<div class="popup" id="challengesPopup">
-	<button id="close-challenges">Close</button>
+<div class="popup" id="triumphsPopup">
+	<button id="close-triumphs">Close</button>
 </div>
 
 
@@ -301,15 +301,15 @@ document.getElementById("close-filters").onclick = function() {
     filtersPopup.style.display = "none";
 };
 
-	document.body.appendChild(challengesPopup);
+	document.body.appendChild(triumphsPopup);
 document.getElementById("triumphs-button").onclick = function() {
-    challengesPopup.style.display = challengesPopup.style.display === "none" ? "block" : "none";
+    triumphsPopup.style.display = triumphsPopup.style.display === "none" ? "block" : "none";
     if (window.innerWidth <= 970) {
         closeLeftPane(); // Only dismiss the left pane when in mobile view
     }
 };
-document.getElementById("close-challenges").onclick = function() {
-    settingsPopup.style.display = "none";
+document.getElementById("close-triumphs").onclick = function() {
+    triumphsPopup.style.display = "none";
 };
 
 
