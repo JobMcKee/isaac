@@ -247,30 +247,40 @@
 	
 	document.getElementById('overlay').addEventListener('click', closeLeftPane);
 	document.addEventListener('keydown', function(event) {
-	if (event.key === 'Escape' && isLeftPaneOpen) closeLeftPane();
+	    if (event.key === 'Escape' && isLeftPaneOpen) closeLeftPane();
 	});
 	
 	window.onresize = function() {
-	if (window.innerWidth > 970) {
-	    document.getElementById('leftpane').style.display = 'block';
-	    document.getElementById('leftpane').classList.remove('mobile');
-	    document.getElementById('overlay').style.display = 'none';
-	    document.getElementById('second-overlay').style.display = 'none';
-	    isLeftPaneOpen = false;
-	} else {
-	    document.getElementById('leftpane').style.display = 'none';
-	    document.getElementById('overlay').style.display = 'none';
-	    document.getElementById('second-overlay').style.display = 'none';
-	    isLeftPaneOpen = false;
-	}
+	    if (window.innerWidth > 970) {
+	        document.getElementById('leftpane').style.display = 'block';
+	        document.getElementById('leftpane').classList.remove('mobile');
+	        document.getElementById('overlay').style.display = 'none';
+	        document.getElementById('second-overlay').style.display = 'none';
+	        isLeftPaneOpen = false;
+	    } else {
+	        document.getElementById('leftpane').style.display = 'none';
+	        document.getElementById('overlay').style.display = 'none';
+	        document.getElementById('second-overlay').style.display = 'none';
+	        isLeftPaneOpen = false;
+	    }
 	};
 	
 	let touchStartX = 0;
 	document.getElementById('leftpane').addEventListener('touchstart', function(e) {
-	touchStartX = e.changedTouches[0].screenX;
+	    touchStartX = e.changedTouches[0].screenX;
 	});
 	document.getElementById('leftpane').addEventListener('touchend', function(e) {
-	if (e.changedTouches[0].screenX < touchStartX - 50) closeLeftPane();
+	    if (e.changedTouches[0].screenX < touchStartX - 50) closeLeftPane();
+	});
+	
+	document.getElementById('searchbar').addEventListener('keypress', function(event) {
+	    if (event.key === 'Enter') {
+	        if (window.innerWidth <= 970) {
+	            closeLeftPane();
+	        }
+	        // Assuming the search action involves setting the iframe src, add that functionality here
+	        // Example: document.getElementById('iframe').src = 'https://example.com/search?q=' + this.value;
+	    }
 	});
 	
 	document.querySelectorAll('#leftpane-list button').forEach(button => {
