@@ -230,6 +230,13 @@ document.getElementById('mobile-searchbar').addEventListener('keydown', function
         document.getElementById('triumphsPopup').style.display = 'none';
     };
 
+		// Universal close button
+    document.querySelectorAll('.close-popup').forEach(button => {
+        button.onclick = function() {
+            this.parentElement.style.display = 'none';
+        };
+    });
+		
     // Existing code for the sidebar and search functionality
     document.getElementById('hamburger').onclick = function() {
         if (isLeftPaneOpen) closeLeftPane();
