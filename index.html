@@ -201,144 +201,125 @@ document.getElementById('mobile-searchbar').addEventListener('keydown', function
         this.value = '';
     }
 });
-	
-let isLeftPaneOpen = false;
-document.getElementById("hamburger").onclick = function() {
-    if (isLeftPaneOpen) closeLeftPane();
-    else openLeftPane();
-};
-
-function openLeftPane() {
-    const leftpane = document.getElementById("leftpane");
-    leftpane.classList.add("mobile");
-    leftpane.style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-    document.getElementById("second-overlay").style.display = "block"; 
-    isLeftPaneOpen = true;
-}
-
-function closeLeftPane() {
-    const leftpane = document.getElementById("leftpane");
-    leftpane.style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-    document.getElementById("second-overlay").style.display = "none";
-    isLeftPaneOpen = false;
-}
-
-// Close on overlay click or escape key
-document.getElementById("overlay").addEventListener('click', closeLeftPane);
-document.addEventListener('keydown', function(event) {
-    if (event.key === "Escape" && isLeftPaneOpen) closeLeftPane();
-});
-
-// Window resize event handler for display adjustment
-window.onresize = function() {
-    if (window.innerWidth > 970) {
-        document.getElementById("leftpane").style.display = "block";
-        document.getElementById("leftpane").classList.remove("mobile");
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("second-overlay").style.display = "none";
-        isLeftPaneOpen = false;
-    } else {
-        document.getElementById("leftpane").style.display = "none";
-        document.getElementById("overlay").style.display = "none";
-        document.getElementById("second-overlay").style.display = "none";
-        isLeftPaneOpen = false;
+	document.addEventListener('DOMContentLoaded', function() {
+    function togglePopup(popupId) {
+        const popup = document.getElementById(popupId);
+        popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'block' : 'none';
+        if (window.innerWidth <= 970) {
+            closeLeftPane();
+        }
     }
-};
 
-// Add touch event to allow swipe-to-close on mobile
-let touchStartX = 0;
-document.getElementById('leftpane').addEventListener('touchstart', function(e) {
-    touchStartX = e.changedTouches[0].screenX;
-});
-document.getElementById('leftpane').addEventListener('touchend', function(e) {
-    if (e.changedTouches[0].screenX < touchStartX - 50) closeLeftPane();
-});
+    document.querySelectorAll('.popup-button').forEach(button => {
+        button.onclick = function() {
+            const popupId = this.getAttribute('data-popup');
+            togglePopup(popupId);
+        };
+    });
 
-// Update the button click event listener
-document.querySelectorAll("#leftpane-list button").forEach(button => {
-    button.onclick = function() {
-        const title = this.getAttribute("data-title");
-
-        // Prevent closing the left pane if the search input is clicked
-        if (title === "leftpanesearchbar") {
-            return; // Don't close the left pane when search input is clicked
-        }
-
-        // Specific behavior for the "Collection" button
-        if (title === "Collection") {
-            document.getElementById("iframe").src = "https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)";
-        } else if (title) {
-            searchWiki(title);
-        }
-
-        // Close the left pane for all other buttons when on mobile
-        if (window.innerWidth <= 970) closeLeftPane();
+    document.getElementById('close-settings').onclick = function() {
+        document.getElementById('settingsPopup').style.display = 'none';
     };
-});
+		
+    document.getElementById('close-filters').onclick = function() {
+        document.getElementById('filtersPopup').style.display = 'none';
+    };
 
+    document.getElementById('close-triumphs').onclick = function() {
+        document.getElementById('triumphsPopup').style.display = 'none';
+    };
 
-document.body.appendChild(settingsPopup);
-document.getElementById("settings-button").onclick = function() {
-    settingsPopup.style.display = settingsPopup.style.display === "none" ? "block" : "none";
-    if (window.innerWidth <= 970) {
-        closeLeftPane(); // Only dismiss the left pane when in mobile view
+    // Existing code for the sidebar and search functionality
+    document.getElementById('hamburger').onclick = function() {
+        if (isLeftPaneOpen) closeLeftPane();
+        else openLeftPane();
+    };
+
+    function openLeftPane() {
+        const leftpane = document.getElementById('leftpane');
+        leftpane.classList.add('mobile');
+        leftpane.style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('second-overlay').style.display = 'block';
+        isLeftPaneOpen = true;
     }
-};
-document.getElementById("close-settings").onclick = function() {
-    settingsPopup.style.display = "none";
-};
-	
-	document.body.appendChild(filtersPopup);
-document.getElementById("filters-button").onclick = function() {
-    filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
-    if (window.innerWidth <= 970) {
-        closeLeftPane(); // Only dismiss the left pane when in mobile view
+
+    function closeLeftPane() {
+        const leftpane = document.getElementById('leftpane');
+        leftpane.style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('second-overlay').style.display = 'none';
+        isLeftPaneOpen = false;
     }
-};
-document.getElementById("close-filters").onclick = function() {
-    filtersPopup.style.display = "none";
-};
 
-	document.body.appendChild(triumphsPopup);
-document.getElementById("triumphs-button").onclick = function() {
-    triumphsPopup.style.display = triumphsPopup.style.display === "none" ? "block" : "none";
-    if (window.innerWidth <= 970) {
-        closeLeftPane(); // Only dismiss the left pane when in mobile view
-    }
-};
-document.getElementById("close-triumphs").onclick = function() {
-    triumphsPopup.style.display = "none";
-};
+    document.getElementById('overlay').addEventListener('click', closeLeftPane);
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && isLeftPaneOpen) closeLeftPane();
+    });
 
-
-
-document.addEventListener('keydown', function(event) {
-    const searchInput = document.getElementById("mobile-searchbar");
-    if (document.activeElement !== searchInput) {
-        searchInput.focus();
-    }
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        const items = document.querySelectorAll('.suggestion-item');
-        if (items.length) {
-            let selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
-            selectedIndex = (event.key === 'ArrowDown') ? selectedIndex + 1 : selectedIndex - 1;
-            selectedIndex = (selectedIndex + items.length) % items.length;
-            items.forEach(item => item.classList.remove('selected'));
-            items[selectedIndex].classList.add('selected');
-            items[selectedIndex].scrollIntoView({ block: 'nearest' });
-            event.preventDefault();
+    window.onresize = function() {
+        if (window.innerWidth > 970) {
+            document.getElementById('leftpane').style.display = 'block';
+            document.getElementById('leftpane').classList.remove('mobile');
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('second-overlay').style.display = 'none';
+            isLeftPaneOpen = false;
+        } else {
+            document.getElementById('leftpane').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('second-overlay').style.display = 'none';
+            isLeftPaneOpen = false;
         }
-    } else if (event.key === 'Enter') {
-        const selectedItem = document.querySelector('.suggestion-item.selected');
-        if (selectedItem) {
-            searchWiki(selectedItem.textContent);
-            document.getElementById('mobile-suggestions').style.display = 'none';
-        }
-    }
-});
+    };
 
+    let touchStartX = 0;
+    document.getElementById('leftpane').addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    document.getElementById('leftpane').addEventListener('touchend', function(e) {
+        if (e.changedTouches[0].screenX < touchStartX - 50) closeLeftPane();
+    });
+
+    document.querySelectorAll('#leftpane-list button').forEach(button => {
+        button.onclick = function() {
+            const title = this.getAttribute('data-title');
+            if (title === 'leftpanesearchbar') {
+                return;
+            }
+            if (title === 'Collection') {
+                document.getElementById('iframe').src = 'https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)';
+            } else if (title) {
+                searchWiki(title);
+            }
+            if (window.innerWidth <= 970) closeLeftPane();
+        };
+    });
+
+    document.addEventListener('keydown', function(event) {
+        const searchInput = document.getElementById('mobile-searchbar');
+        if (document.activeElement !== searchInput) {
+            searchInput.focus();
+        }
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+            const items = document.querySelectorAll('.suggestion-item');
+            if (items.length) {
+                let selectedIndex = Array.from(items).findIndex(item => item.classList.contains('selected'));
+                selectedIndex = (event.key === 'ArrowDown') ? selectedIndex + 1 : selectedIndex - 1;
+                selectedIndex = (selectedIndex + items.length) % items.length;
+                items.forEach(item => item.classList.remove('selected'));
+                items[selectedIndex].classList.add('selected');
+                items[selectedIndex].scrollIntoView({ block: 'nearest' });
+                event.preventDefault();
+            }
+        } else if (event.key === 'Enter') {
+            const selectedItem = document.querySelector('.suggestion-item.selected');
+            if (selectedItem) {
+                searchWiki(selectedItem.textContent);
+                document.getElementById('mobile-suggestions').style.display = 'none';
+            }
+        }
+    });
+});
 
 
 
