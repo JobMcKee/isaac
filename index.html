@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">    <title>Repentance</title>
     <link rel="shortcut icon" href="favicon.png">
 
-	
 <style>body,html{margin:0;padding:0;height:100%;overflow:hidden;background-color:#603829}
 #iframe{position:fixed;top:0;left:0;width:calc(100% - 200px);height:100%;z-index:0}
 #leftpane.mobile{width:75%}
@@ -27,8 +26,7 @@ button:hover{background-color:rgba(255,255,255,0.2)}
 @media (min-width:971px){#leftpane{display:block;min(calc(15%+15vw),50%)}#iframe{width:calc(100%-200px);left:200px;z-index:0}}
 #mobile-suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
 .suggestion-item{padding:10px;cursor:pointer}
-.suggestion-item:hover,
-.suggestion-item.selected{background-color:rgba(255,255,255,0.3)}
+.suggestion-item:hover,.suggestion-item.selected{background-color:rgba(255,255,255,0.3)}
 .popup{position:fixed;top:50%;left:62.5%;transform:translate(-50%,-50%);width:60%;background-color:#603829;color:white;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:20px;display:none;}
 </style>
 	
@@ -51,10 +49,9 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
     document.getElementById("mobile-searchbar").focus(); // Focus the input field
 };
 
-// Your existing code for the search input handling goes here...
 </script>
 
-            <li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
+<li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>  
 <li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
 <li><button data-title="Cards and Runes"><img src="img/cardsandrunes.png" alt="Cards and Runes Icon">Cards and Runes</button></li>
 <li><button data-title="Pickups"><img src="img/pickups.png" alt="Pickups Icon">Pickups</button></li>
@@ -79,10 +76,7 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 <li><button data-title="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
 <li><button id="filters-button"><img src="img/filters.png" alt="Settings Icon">Filters</button></li>
 <li><button id="settings-button"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
-
-
 </ul>
-
     </div>
     <div id="mobilebar">
         <button id="hamburger">☰</button>
@@ -126,17 +120,12 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 
 </div>
 
-	
 <div class="popup" id="challengesPopup">
 	<button id="close-challenges" style="background-color: #3b3b3b; color: white; border: none; padding: 10px; cursor: pointer;">Close</button>
 
-	
 </div>
 
 
-
-
-	
 <script>
 let suggestions = [];
 
@@ -205,7 +194,13 @@ document.getElementById('mobile-searchbar').addEventListener('keydown', function
         document.getElementById('mobile-suggestions').style.display = 'none';
     }
 });
-
+	
+document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        this.value = '';
+    }
+});
+	
 let isLeftPaneOpen = false;
 document.getElementById("hamburger").onclick = function() {
     if (isLeftPaneOpen) closeLeftPane();
