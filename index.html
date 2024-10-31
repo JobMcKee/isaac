@@ -284,41 +284,66 @@ document.querySelectorAll("#leftpane-list button").forEach(button => {
 });
 
 
-document.body.appendChild(settingsPopup);
-document.getElementById("settings-button").onclick = function() {
-    settingsPopup.style.display = settingsPopup.style.display === "none" ? "block" : "none";
+// Ensure initial state
+document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("filtersPopup").style.display = "none";
+    document.getElementById("settingsPopup").style.display = "none";
+    document.getElementById("challengesPopup").style.display = "none";
+});
+
+// Function to close the left pane if in mobile view
+function closeLeftPaneIfMobile() {
     if (window.innerWidth <= 970) {
-        closeLeftPane(); // Only dismiss the left pane when in mobile view
+        closeLeftPane();
     }
-};
-document.getElementById("close-settings").onclick = function() {
-    settingsPopup.style.display = "none";
-};
-	
-	document.body.appendChild(filtersPopup);
-document.getElementById("filters-button").onclick = function() {
-    filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
-    if (window.innerWidth <= 970) {
-        closeLeftPane(); // Only dismiss the left pane when in mobile view
-    }
-};
+}
+
+// Modify the close buttons to also close the left pane if in mobile view
 document.getElementById("close-filters").onclick = function() {
-    filtersPopup.style.display = "none";
+    document.getElementById("filtersPopup").style.display = "none";
+    closeLeftPaneIfMobile();
 };
 
-	document.body.appendChild(challengesPopup);
-document.getElementById("triumphs-button").onclick = function() {
-    challengesPopup.style.display = challengesPopup.style.display === "none" ? "block" : "none";
-    if (window.innerWidth <= 970) {
-        closeLeftPane(); // Only dismiss the left pane when in mobile view
-    }
+document.getElementById("close-settings").onclick = function() {
+    document.getElementById("settingsPopup").style.display = "none";
+    closeLeftPaneIfMobile();
 };
+
 document.getElementById("close-challenges").onclick = function() {
-    settingsPopup.style.display = "none";
+    document.getElementById("challengesPopup").style.display = "none";
+    closeLeftPaneIfMobile();
 };
 
+// Function to close the left pane
+function closeLeftPane() {
+    const leftpane = document.getElementById("leftpane");
+    leftpane.style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("second-overlay").style.display = "none";
+    isLeftPaneOpen = false;
+}
+
+// Event listeners for buttons to toggle popup visibility
+document.getElementById("filters-button").onclick = function() {
+    const filtersPopup = document.getElementById("filtersPopup");
+    filtersPopup.style.display = filtersPopup.style.display === "none" ? "block" : "none";
+};
+
+document.getElementById("settings-button").onclick = function() {
+    const settingsPopup = document.getElementById("settingsPopup");
+    settingsPopup.style.display = settingsPopup.style.display === "none" ? "block" : "none";
+};
+
+document.getElementById("triumphs-button").onclick = function() {
+    const challengesPopup = document.getElementById("challengesPopup");
+    challengesPopup.style.display = challengesPopup.style.display === "none" ? "block" : "none";
+};
+
+// Initializing the state of isLeftPaneOpen
+let isLeftPaneOpen = false;
 
 
+// navigate search suggestions with arrowkeys
 document.addEventListener('keydown', function(event) {
     const searchInput = document.getElementById("mobile-searchbar");
     if (document.activeElement !== searchInput) {
