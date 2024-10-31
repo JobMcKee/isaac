@@ -26,9 +26,15 @@ button:hover{background-color:rgba(255,255,255,0.2)}
 @media (max-width:970px){#mobilebar{display:block}#iframe{width:100%;left:0;z-index:0}}
 @media (min-width:971px){#leftpane{display:block;min(calc(15%+15vw),50%)}#iframe{width:calc(100%-200px);left:200px;z-index:0}}
 #mobile-suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
-.suggestion-item{padding:10px;cursor:pointer}
-.suggestion-item:hover{background-color:rgba(255,255,255,0.2)}
-.suggestion-item.selected {background-color: rgba(255, 255, 255, 0.2); color: #000; }
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+    background-color: rgba(255, 255, 255, 0.1);
+}
 .popup{position:fixed;top:50%;left:62.5%;transform:translate(-50%,-50%);width:60%;background-color:#603829;color:white;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:20px;display:none;}
 </style>
 	
@@ -42,8 +48,8 @@ button:hover{background-color:rgba(255,255,255,0.2)}
         <img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
         <input type="text" id="mobile-searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
     </button>
-    <div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
-</li>
+<div id="mobile-suggestions" style="display:none;"></div>
+	    </li>
 
 <script>
 // Ensure that clicking the search button focuses on the input field
@@ -131,6 +137,11 @@ document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() 
 
 	
 <script>
+
+document.getElementById('mobile-searchbar').addEventListener('input', function() {
+    showSuggestions(this);
+});
+	
 let suggestions = [];
 
 // Load suggestions from the file
