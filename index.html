@@ -170,7 +170,7 @@
 	    document.getElementById("iframe").src = `https://bindingofisaacrebirth.fandom.com/wiki/Special:Search?search=${encodeURIComponent(query)}&go=Search`;
 	    document.getElementById("mobile-searchbar").value = ''; 
 	    document.getElementById('mobile-suggestions').style.display = 'none'; 
-	
+		closeLeftPane();
 	    // Dismiss the keyboard and close the left pane
 	    document.getElementById("mobile-searchbar").blur(); // Dismiss the keyboard
 	    if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
