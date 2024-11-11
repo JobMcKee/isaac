@@ -67,11 +67,11 @@
 				<li><button class="normal-button" data="Rooms"><img src="img/rooms.png" alt="Rooms Icon">Rooms</button></li>
 				<li><button class="normal-button" data="Item Pools"><img src="img/itempools.png" alt="Item Pools Icon">Item Pools</button></li>
 				<li><button class="normal-button" data="Challenges"><img src="img/challenges.png" alt="Challenges Icon">Challenges</button></li>
-				<li><button class="hotlink-button" data="Triumphs"><img src="img/platchallenges.png" alt="Triumphs Icon">Triumphs</button></li>
+				<li><button class="hotlink-button" data="triumphs"><img src="img/platchallenges.png" alt="Triumphs Icon">Triumphs</button></li>
 				<li><button class="normal-button" data="Babies"><img src="img/babies.png" alt="Babies Icon">Babies</button></li>
-				<li><button class="hotlink-button" data="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
-				<li><button class="hotlink-button" data="Filters"><img src="img/filters.png" alt="Filters Icon">Filters</button></li>
-				<li><button class="hotlink-button" data="Settings"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
+				<li><button class="normal-button" data="collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
+				<li><button class="hotlink-button" data="filters"><img src="img/filters.png" alt="Filters Icon">Filters</button></li>
+				<li><button class="hotlink-button" data="settings"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
 				
 			</ul>
 		</div>
@@ -287,7 +287,9 @@ document.querySelectorAll('#leftpane-list button').forEach(button => {
         }
         if (this.classList.contains('hotlink-button')) {
             document.getElementById('iframe').src = `${data}.html`;
-        } else {
+        } else if (title === 'Collection') {
+            document.getElementById('iframe').src = 'https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)';
+        } else  {
             searchWiki(data);
         }
         if (window.innerWidth <= 970) closeLeftPane();  // Ensure the left pane is closed for all buttons
