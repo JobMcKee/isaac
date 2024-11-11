@@ -181,12 +181,16 @@
 	    if (event.key === "Enter") {
 		searchWiki(this.value); 
 		document.getElementById('mobile-suggestions').style.display = 'none';
+	        if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
+
 	    }
 	});
 		
 	document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
 	    if (event.key === 'Escape') {
 		this.value = '';
+	        if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
+
 	    }
 	});
 		
