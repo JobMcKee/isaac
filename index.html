@@ -199,7 +199,7 @@
 
 	document.querySelectorAll('.special-button').forEach(button => {
 	    button.onclick = function() {
-	        const popupId = this.getAttribute('data-popup');
+	        const popupId = this.getAttribute('data');
 	        togglePopup(popupId);
 	    };
 	});
