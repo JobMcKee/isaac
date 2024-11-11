@@ -186,13 +186,7 @@
 	    }
 	});
 		
-	document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
-	    if (event.key === 'Escape') {
-		this.value = '';
-	        if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
-
-	    }
-	});
+	
 		
 	document.addEventListener('DOMContentLoaded', function() {
 	    function togglePopup(popupId) {
@@ -295,7 +289,10 @@
 	        }
 	        if (title === 'Collection') {
 	            document.getElementById('iframe').src = 'https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)';
-	        } else if (title) {
+	        }else if (title === 'triumphs'){
+		    document.getElementById('iframe').src = 'morechallenges.html';
+		}
+		else if (title) {
 	            searchWiki(title);
 	        }
 	        if (window.innerWidth <= 970) closeLeftPane();  // Ensure the left pane is closed for all buttons
