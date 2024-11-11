@@ -24,7 +24,7 @@
 			button:hover{background-color:rgba(255,255,255,0.2)}
 			@media (max-width:970px){#mobilebar{display:block}#iframe{width:100%;left:0;z-index:0}}
 			@media (min-width:971px){#leftpane{display:block;min(calc(15%+15vw),50%)}#iframe{width:calc(100%-200px);left:200px;z-index:0}}
-			#mobile-suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
+			#suggestions{position:absolute;background-color:#3b3b3b;color:#fff;width:calc(100% - 10px);z-index:10000;max-height:300px;overflow-y:auto;box-shadow:0 0 10px rgba(0,0,0,0.5)}
 			.suggestion-item{padding:10px;cursor:pointer}
 			.suggestion-item:hover,.suggestion-item.selected{background-color:rgba(255,255,255,0.3)}
 			.popup{position:fixed;top:50%;left:62.5%;transform:translate(-50%,-50%);width:60%;background-color:#603829;color:#fff;box-shadow:0 0 10px rgba(0,0,0,0.5);padding:20px;display:none;z-index:5}	
@@ -35,51 +35,49 @@
 		<div id="leftpane">
 			<ul id="leftpane-list">
 				<li>
-					<button data-title="leftpanesearchbar" style="display: flex; align-items: center; width: 100%;">
+					<button data="searchbar" style="display: flex; align-items: center; width: 100%;">
 					<img src="img/search.png" alt="Search Icon" style="margin-right: 5px;"/> 
-					<input type="text" id="mobile-searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
+					<input type="text" id="searchbar" placeholder="Search..." style="flex-grow: 1; border: none; outline: none; padding: 5px; border-radius: 4px;"/>
 					</button>
-					<div id="mobile-suggestions" class="suggestions-box" style="display:none;"></div>
+					<div id="suggestions" class="suggestions-box" style="display:none;"></div>
 				</li>
 				<script>
 					// Ensure that clicking the search button focuses on the input field
-					document.querySelector('[data-title="leftpanesearchbar"]').onclick = function() {
-					    document.getElementById("mobile-searchbar").focus(); // Focus the input field
+					document.querySelector('[data="searchbar"]').onclick = function() {
+					    document.getElementById("searchbar").focus(); // Focus the input field
 					};
 				</script>
-				<li><button data-title="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>
-				<li><button data-title="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
-				<li><button data-title="Cards and Runes"><img src="img/cardsandrunes.png" alt="Cards and Runes Icon">Cards and Runes</button></li>
-				<li><button data-title="Pickups"><img src="img/pickups.png" alt="Pickups Icon">Pickups</button></li>
-				<li><button data-title="Achievements"><img src="img/achievements.png" alt="Achievements Icon">Achievements</button></li>
-				<li><button data-title="Transformations"><img src="img/transformations.png" alt="Transformations Icon">Transformations</button></li>
-				<li><button data-title="Bag of Crafting"><img src="img/bagofcrafting.png" alt="Bag of Crafting Icon">Bag of Crafting</button></li>
-				<li><button data-title="Item Tags"><img src="img/itemtags.png" alt="Item Tags Icon">Item Tags</button></li>
-				<li><button data-title="Seeds"><img src="img/seeds.png" alt="Seeds Icon">Seeds</button></li>
-				<li><button data-title="Pills"><img src="img/pills.png" alt="Pills Icon">Pills</button></li>
-				<li><button data-title="Monsters"><img src="img/monsters.png" alt="Monsters Icon">Monsters</button></li>
-				<li><button data-title="Champions"><img src="img/champions.png" alt="Champions Icon">Champions</button></li>
-				<li><button data-title="Bosses"><img src="img/bosses.png" alt="Bosses Icon">Bosses</button></li>
-				<li><button data-title="Characters"><img src="img/characters.png" alt="Characters Icon">Characters</button></li>
-				<li><button data-title="Completion Marks"><img src="img/completionmarks.png" alt="Marks Icon">Marks</button></li>
-				<li><button data-title="Curses"><img src="img/curses.png" alt="Curses Icon">Curses</button></li>
-				<li><button data-title="Floors"><img src="img/floors.png" alt="Floors Icon">Floors</button></li>
-				<li><button data-title="Rooms"><img src="img/rooms.png" alt="Rooms Icon">Rooms</button></li>
-				<li><button data-title="Item Pools"><img src="img/itempools.png" alt="Item Pools Icon">Item Pools</button></li>
-				<li><button data-title="Challenges"><img src="img/challenges.png" alt="Challenges Icon">Challenges</button></li>
-				<li><button class="popup-button" data-popup="triumphsPopup"><img src="img/platchallenges.png" alt="Triumphs Icon">Triumphs</button>
-				<li>
-				<li><button data-title="Babies"><img src="img/babies.png" alt="Babies Icon">Babies</button></li>
-				<li><button data-title="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
-				<li><button class="popup-button" data-popup="filtersPopup"><img src="img/filters.png" alt="Filters Icon">Filters</button>
-				<li>
-				<li><button class="popup-button" data-popup="settingsPopup"><img src="img/settings.png" alt="Settings Icon">Settings</button>
-				<li>
+				<li><button class="normal-button" data="Items"><img src="img/items.png" alt="Items Icon">Items</button></li>
+				<li><button class="normal-button" data="Trinkets"><img src="img/trinkets.png" alt="Trinkets Icon">Trinkets</button></li>
+				<li><button class="normal-button" data="Cards and Runes"><img src="img/cardsandrunes.png" alt="Cards and Runes Icon">Cards and Runes</button></li>
+				<li><button class="normal-button" data="Pickups"><img src="img/pickups.png" alt="Pickups Icon">Pickups</button></li>
+				<li><button class="normal-button" data="Achievements"><img src="img/achievements.png" alt="Achievements Icon">Achievements</button></li>
+				<li><button class="normal-button" data="Transformations"><img src="img/transformations.png" alt="Transformations Icon">Transformations</button></li>
+				<li><button class="normal-button" data="Bag of Crafting"><img src="img/bagofcrafting.png" alt="Bag of Crafting Icon">Bag of Crafting</button></li>
+				<li><button class="normal-button" data="Item Tags"><img src="img/itemtags.png" alt="Item Tags Icon">Item Tags</button></li>
+				<li><button class="normal-button" data="Seeds"><img src="img/seeds.png" alt="Seeds Icon">Seeds</button></li>
+				<li><button class="normal-button" data="Pills"><img src="img/pills.png" alt="Pills Icon">Pills</button></li>
+				<li><button class="normal-button" data="Monsters"><img src="img/monsters.png" alt="Monsters Icon">Monsters</button></li>
+				<li><button class="normal-button" data="Champions"><img src="img/champions.png" alt="Champions Icon">Champions</button></li>
+				<li><button class="normal-button" data="Bosses"><img src="img/bosses.png" alt="Bosses Icon">Bosses</button></li>
+				<li><button class="normal-button" data="Characters"><img src="img/characters.png" alt="Characters Icon">Characters</button></li>
+				<li><button class="normal-button" data="Completion Marks"><img src="img/completionmarks.png" alt="Marks Icon">Marks</button></li>
+				<li><button class="normal-button" data="Curses"><img src="img/curses.png" alt="Curses Icon">Curses</button></li>
+				<li><button class="normal-button" data="Floors"><img src="img/floors.png" alt="Floors Icon">Floors</button></li>
+				<li><button class="normal-button" data="Rooms"><img src="img/rooms.png" alt="Rooms Icon">Rooms</button></li>
+				<li><button class="normal-button" data="Item Pools"><img src="img/itempools.png" alt="Item Pools Icon">Item Pools</button></li>
+				<li><button class="normal-button" data="Challenges"><img src="img/challenges.png" alt="Challenges Icon">Challenges</button></li>
+				<li><button class="special-button" data="triumphsPopup"><img src="img/platchallenges.png" alt="Triumphs Icon">Triumphs</button></li>
+				<li><button class="normal-button" data="Babies"><img src="img/babies.png" alt="Babies Icon">Babies</button></li>
+				<li><button class="special-button" data="Collection"><img src="img/collection.png" alt="Collection Icon">Collection</button></li>
+				<li><button class="special-button" data="filtersPopup"><img src="img/filters.png" alt="Filters Icon">Filters</button></li>
+				<li><button class="special-button" data="settingsPopup"><img src="img/settings.png" alt="Settings Icon">Settings</button></li>
+				
 			</ul>
 		</div>
 		<div id="mobilebar">
 			<button id="hamburger">☰</button>
-			<input type="text" id="searchbar" placeholder="Search..." style="display:none;">
+		
 		</div>
 		<iframe id="iframe" src="https://bindingofisaacrebirth.fandom.com/wiki/The_Binding_of_Isaac:_Repentance"></iframe>
 		<div class="popup" id="settingsPopup">
@@ -127,7 +125,7 @@
 	    });
 	
 	function showSuggestions(input) {
-	    const suggestionBox = document.getElementById('mobile-suggestions');
+	    const suggestionBox = document.getElementById('suggestions');
 	    suggestionBox.innerHTML = '';
 	    const inputValue = input.value.toLowerCase();
 	    const filteredSuggestions = suggestions.filter(suggestion => suggestion.toLowerCase().includes(inputValue));
@@ -152,14 +150,14 @@
 	}
 	
 	// Event listener for the search input
-	document.getElementById('mobile-searchbar').addEventListener('input', function() {
+	document.getElementById('searchbar').addEventListener('input', function() {
 	    showSuggestions(this);
 	});
 	
 	// Hide suggestions when clicking outside
 	document.addEventListener('click', function(event) {
-	    const suggestionBox = document.getElementById('mobile-suggestions');
-	    if (!suggestionBox.contains(event.target) && event.target.id !== 'mobile-searchbar') {
+	    const suggestionBox = document.getElementById('suggestions');
+	    if (!suggestionBox.contains(event.target) && event.target.id !== 'searchbar') {
 		suggestionBox.style.display = 'none';
 	    }
 	});
@@ -168,19 +166,19 @@
 	function searchWiki(query) {
 	    if (!query || query.trim() === "") return; 
 	    document.getElementById("iframe").src = `https://bindingofisaacrebirth.fandom.com/wiki/Special:Search?search=${encodeURIComponent(query)}&go=Search`;
-	    document.getElementById("mobile-searchbar").value = ''; 
-	    document.getElementById('mobile-suggestions').style.display = 'none'; 
+	    document.getElementById("searchbar").value = ''; 
+	    document.getElementById('suggestions').style.display = 'none'; 
 		closeLeftPane();
 	    // Dismiss the keyboard and close the left pane
-	    document.getElementById("mobile-searchbar").blur(); // Dismiss the keyboard
+	    document.getElementById("searchbar").blur(); // Dismiss the keyboard
 	    if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
 	}
 	
 	// Add event listener for search submission
-	document.getElementById('mobile-searchbar').addEventListener('keydown', function(event) {
+	document.getElementById('searchbar').addEventListener('keydown', function(event) {
 	    if (event.key === "Enter") {
 		searchWiki(this.value); 
-		document.getElementById('mobile-suggestions').style.display = 'none';
+		document.getElementById('suggestions').style.display = 'none';
 	        if (window.innerWidth <= 970) closeLeftPane(); // Close the left pane if on mobile
 
 	    }
@@ -199,7 +197,7 @@
 	
 	let isLeftPaneOpen = false;
 
-	document.querySelectorAll('.popup-button').forEach(button => {
+	document.querySelectorAll('.special-button').forEach(button => {
 	    button.onclick = function() {
 	        const popupId = this.getAttribute('data-popup');
 	        togglePopup(popupId);
@@ -283,8 +281,8 @@
 	
 	document.querySelectorAll('#leftpane-list button').forEach(button => {
 	    button.onclick = function() {
-	        const title = this.getAttribute('data-title');
-	        if (title === 'leftpanesearchbar') {
+	        const title = this.getAttribute('data');
+	        if (title === 'searchbar') {
 	            return;
 	        }
 	        if (title === 'Collection') {
@@ -300,7 +298,7 @@
 	});
 	
 	document.addEventListener('keydown', function(event) {
-		const searchInput = document.getElementById('mobile-searchbar');
+		const searchInput = document.getElementById('searchbar');
 		if (document.activeElement !== searchInput) {
 		    searchInput.focus();
 		}
@@ -319,7 +317,7 @@
 		    const selectedItem = document.querySelector('.suggestion-item.selected');
 		    if (selectedItem) {
 			searchWiki(selectedItem.textContent);
-			document.getElementById('mobile-suggestions').style.display = 'none';
+			document.getElementById('suggestions').style.display = 'none';
 		    }
 		}
 		});
