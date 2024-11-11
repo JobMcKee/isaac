@@ -288,18 +288,18 @@
 	});
 	
 	document.querySelectorAll('#leftpane-list button').forEach(button => {
-	button.onclick = function() {
-	    const title = this.getAttribute('data-title');
-	    if (title === 'leftpanesearchbar') {
-		return;
-	    }
-	    if (title === 'Collection') {
-		document.getElementById('iframe').src = 'https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)';
-	    } else if (title) {
-		searchWiki(title);
-	    }
-	    if (window.innerWidth <= 970) closeLeftPane();
-	};
+	    button.onclick = function() {
+	        const title = this.getAttribute('data-title');
+	        if (title === 'leftpanesearchbar') {
+	            return;
+	        }
+	        if (title === 'Collection') {
+	            document.getElementById('iframe').src = 'https://bindingofisaacrebirth.fandom.com/wiki/Collection_Page_(Repentance)';
+	        } else if (title) {
+	            searchWiki(title);
+	        }
+	        if (window.innerWidth <= 970) closeLeftPane();  // Ensure the left pane is closed for all buttons
+	    };
 	});
 	
 	document.addEventListener('keydown', function(event) {
